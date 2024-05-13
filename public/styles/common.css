@@ -1,0 +1,38 @@
+* {
+    font-family: 'Geologica', sans-serif;
+    margin: 0;
+}
+
+.navbar {
+    padding: 15px 40px;
+    color: #ff6c00;
+}
+
+.navbar h1 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 24px;
+}
+
+.btn1 {
+    height: 30px;
+    width: 80px;
+    background-color: #ff6c00;
+    border: none;
+    color: white;
+}
+
+.btn1:hover {
+    background-color: #e96606;
+    cursor: pointer;
+}
+
+.button-container {
+    display: flex;
+    justify-content: end;
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        text-align: center;
+    }
+}

@@ -1,0 +1,68 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+    <div class="content">
+        <h1>Find Recipes</h1>
+        <p>You can find a variety of recipes based on the ingredients you would like to use.
+            Type in a comma-separated list of ingredients (Eg: mango,milk,nuts) in the box 
+            below and hit search to discover a range of recipes.  Select any recipe from the 
+            list obtainedto get the complete breakdown.
+        </p>
+        <form action="/search" method="post">
+            <textarea name="ingredients" id="ingredients" cols="30" rows="10" placeholder="Enter ingredients"></textarea>
+            <div class="button-container">
+                <input type="submit" value="Search" class="btn1">
+            </div>
+        </form>
+        <div class="recipes-container">
+            <% if (locals.recipes) { %>
+                <h1>Recipes</h1>
+            <% if (recipes.length === 0) { %>
+                <div class="empty-container">
+                    No recipes found
+                </div>
+            <% } else {
+                
+                recipes.forEach(element => { 
+                var ingredients = "";
+                element.usedIngredients.forEach(ingredient => {
+                    ingredients += ingredient.name + ", ";
+                });
+                element.missedIngredients.forEach(ingredient => {
+                    ingredients += ingredient.name + ", ";
+                });
+                ingredients = ingredients.slice(0,-2);
+            %>
+                    
+                    <div class="recipe-tile">
+                        <div class="image-section">
+                            <img src="<%= element.image %>" alt="">
+                        </div>
+                        <div class="information-section">
+                            <div class="title">
+                                <%= element.title %>
+                            </div>
+                            <%=ingredients %>
+                        </div>
+                        <div class="likes-section">
+                            <i class="fa-solid fa-heart"></i>
+                            <h1><%= element.likes %></h1>
+                        </div>
+                        <form action="/recipe/<%=element.id %>" method="post">
+                            <input type="text" name="title" value="<%=element.title %>">
+                            <input type="text" name="ingredients" value="<%=ingredients%>">
+                            <input type="number" name="likes" value="<%=element.likes %>">
+                            <input type="text" name="image" value="<%= element.image %>">
+                        </form>
+                    </div>
+                    
+                <% }); %>
+            <% }
+            } %>
+        </div>
+    </div>
+</div>
+
+<script src="/js/home.js"></script>
+
+<%- include("partials/footer.ejs") %>

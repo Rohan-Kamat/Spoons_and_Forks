@@ -1,0 +1,57 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+    <div class="content">
+        <div class="title-container">
+            <div class="image-section">
+                <img src="<%= image %>" alt="image of the dish">
+            </div>
+            <div class="information-section">
+                <h1><%= title %></h1>
+                <%= ingredients %>
+            </div>
+            <div class="likes-section">
+                <i class="fa-solid fa-heart"></i>
+                <h2>
+                    <%= likes %>
+                </h2>
+            </div>
+        </div>
+        <hr>
+        <div class="steps-container">
+            <% 
+            instructions.steps.forEach(step => { 
+                var stepIngredients = ""
+                step.ingredients.forEach(ingredient => {
+                    stepIngredients += ingredient.name + ", ";
+                });
+                stepIngredients = stepIngredients.slice(0, -2);
+                stepEquipment = "";
+                step.equipment.forEach(equipment => {
+                    stepEquipment += equipment.name + ", ";
+                });
+                stepEquipment = stepEquipment.slice(0, -2);
+            %>
+                <div class="step-container">
+                    <h2>Step <%= step.number %></h2>
+                    <% if (step.ingredients.length > 0) { %>
+                        <div class="step-information">
+                            <h3>Ingredients</h3>
+                            <%= stepIngredients %>
+                        </div>
+                    <% } %>
+                    <% if (step.equipment.length > 0) { %>
+                        <div class="step-information">
+                            <h3>Equipment</h3>
+                            <%= stepEquipment %>
+                        </div>
+                    <% } %>
+                    <div class="step-information">
+                        <p><%= step.step %></p>
+                    </div>
+                </div>
+            <%})%>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>
